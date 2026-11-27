@@ -1,0 +1,9 @@
+{
+  "name": "devenas-leads-private",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "validate": "node scripts/validate-artifact.mjs"
+  }
+}
