@@ -31,6 +31,20 @@
     .platform-tab{border:1px solid #485466;background:#303844;color:#c9d5e5;border-radius:9px;padding:9px 12px;white-space:nowrap;font-weight:400}
     .platform-tab.active{border-color:#5a90ec;background:#3d76d6;color:white}
     .platform-tab small{margin-left:7px;opacity:.75;font-size:11px}
+    .platform-nav{display:flex;flex-direction:column;gap:3px}
+    .platform-link{height:39px;border-radius:9px;padding:0 13px 0 27px;display:flex;align-items:center;justify-content:space-between;color:#aebccc;font-size:13px}
+    .platform-link:hover{background:#29313d;color:white}
+    .platform-link.active{background:#303f58;color:#e8f2ff}
+    .platform-link small{font-size:11px;opacity:.7}
+    .platform-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--card-gap);margin-bottom:var(--section-gap)}
+    .platform-grid[hidden],.back-link[hidden]{display:none}
+    .platform-card{border:1px solid var(--border);border-radius:15px;background:var(--panel);min-height:120px;padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+    .platform-card:hover{border-color:#6b9ce9;background:#333d4c}
+    .platform-card strong{font-size:18px;font-weight:500}
+    .platform-card span{font-size:12px;color:#aab8ca}
+    .platform-card em{align-self:flex-end;font-style:normal;color:#94baff;font-size:20px}
+    .back-link{display:inline-block;color:#9bc2ff;font-size:13px;margin:0 0 12px}
+    .back-link:hover{text-decoration:underline}
     .filters{grid-template-columns:minmax(180px,2fr) repeat(2,minmax(150px,1fr))}
     .filters{padding:16px var(--inner-gutter) var(--inner-gutter);gap:var(--card-gap)}
     .day-head{padding:12px var(--inner-gutter)}
@@ -47,6 +61,8 @@
       .stat{min-height:116px;padding:16px}
       .panel-head{padding:var(--inner-gutter)}
       .platform-tabs{padding:0 var(--inner-gutter) var(--inner-gutter)}
+      .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .platform-card{padding:16px;min-height:106px}
       .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
       .filters{padding:var(--inner-gutter);gap:var(--card-gap)}
       .day-head{padding:12px var(--inner-gutter)}
@@ -62,18 +78,19 @@
     <div class="side-title">РАБОЧЕЕ ПРОСТРАНСТВО</div>
     <a class="nav-item" href="./"><span class="nav-icon" aria-hidden="true">▦</span><span>Тёплые запросы</span></a>
     <div class="side-title section-break">КОНТЕНТ</div>
-    <a class="nav-item active" href="./content-plan.html" aria-current="page"><span class="nav-icon" aria-hidden="true">▤</span><span>Контент-план</span></a>
+    <a class="nav-item" href="#all" id="overview-link"><span class="nav-icon" aria-hidden="true">▤</span><span>Контент-план</span></a>
+    <nav class="platform-nav" id="platform-nav" aria-label="Площадки контент-плана"></nav>
     <div class="side-bottom"><div class="side-card"><strong>От идеи до публикации</strong><p>Планируй посты для двух аккаунтов и отмечай, что уже вышло.</p></div><div class="side-foot">DEVENAS LEADS · КОНТЕНТ</div></div>
   </aside>
   <button class="backdrop" id="backdrop" aria-label="Закрыть меню" hidden></button>
   <main class="main">
-    <header class="topbar"><button class="mobile-trigger" id="menu" aria-label="Открыть меню">☰</button><div class="breadcrumb">Рабочее пространство <span>/</span> Контент-план</div><div class="avatar">Н</div></header>
+    <header class="topbar"><button class="mobile-trigger" id="menu" aria-label="Открыть меню">☰</button><div class="breadcrumb">Рабочее пространство <span>/</span> <em id="breadcrumb-current" style="font-style:normal">Контент-план</em></div><div class="avatar">Н</div></header>
     <div class="content">
-      <div class="heading"><div><p class="eyebrow">ТВОЙ КОНТЕНТ ПО ДНЯМ</p><h1>Контент-план<span class="spark">✳</span></h1><p class="subhead">Идеи, тексты и публикации для всех твоих площадок.</p></div><button class="primary" id="add">＋ Добавить публикацию</button></div>
+      <div class="heading"><div><a class="back-link" href="#all" id="overview-back" hidden>← Все площадки</a><p class="eyebrow">ТВОЙ КОНТЕНТ ПО ДНЯМ</p><h1><span id="page-title">Контент-план</span><span class="spark">✳</span></h1><p class="subhead" id="page-subhead">Идеи, тексты и публикации для всех твоих площадок.</p></div><button class="primary" id="add">＋ Добавить публикацию</button></div>
       <div class="stats" id="stats"></div>
+      <div class="platform-grid" id="platform-grid" aria-label="Выбери площадку"></div>
       <section class="panel">
         <div class="panel-head"><h2>Публикации</h2><div class="month-tools"><button id="prev" aria-label="Предыдущий месяц">‹</button><strong id="month"></strong><button id="next" aria-label="Следующий месяц">›</button></div></div>
-        <nav class="platform-tabs" id="platform-tabs" aria-label="Разделы по площадкам"></nav>
         <div class="filters"><input id="search" aria-label="Поиск по публикациям" placeholder="Поиск по темам и текстам"><select id="account" aria-label="Аккаунт"><option value="">Все аккаунты</option><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select><select id="status" aria-label="Статус"><option value="">Все статусы</option><option value="idea">Идея</option><option value="draft">Черновик</option><option value="ready">Готово</option><option value="published">Опубликовано</option></select></div>
         <div id="posts"></div>
       </section>
@@ -112,22 +129,39 @@ try { const saved = localStorage.getItem(KEY); posts = saved === null ? SEED.fil
 catch { posts = SEED.filter(p => p.platform !== "VK").map(p => ({...p})); }
 let month = today().slice(0,7), editing = null, activePlatform = "all";
 const platforms = ["Threads","LinkedIn","Instagram","Telegram","Pinterest","Behance"];
+const platformFromHash = () => platforms.find(name => name.toLowerCase() === location.hash.slice(1).toLowerCase()) || "all";
+activePlatform = platformFromHash();
 const labels = { idea:"Идея", draft:"Черновик", ready:"Готово", published:"Опубликовано" };
 function save() { try { localStorage.setItem(KEY, JSON.stringify(posts)); } catch { alert("Не удалось сохранить. Проверь свободное место и настройки браузера."); } }
 function render() {
   $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(" г.", "");
   const visiblePosts = posts.filter(p => platforms.includes(p.platform));
-  const monthPosts = visiblePosts.filter(p => p.date?.startsWith(month));
-  $("platform-tabs").innerHTML = [["all","Все"],...platforms.map(name => [name,name])].map(([value,label]) => {
-    const count = value === "all" ? monthPosts.length : monthPosts.filter(p => p.platform === value).length;
-    return `<button class="platform-tab ${activePlatform === value ? "active" : ""}" type="button" data-platform="${value}" aria-pressed="${activePlatform === value}">${label}<small>${count}</small></button>`;
+  const sectionPosts = activePlatform === "all" ? visiblePosts : visiblePosts.filter(p => p.platform === activePlatform);
+  const monthPosts = sectionPosts.filter(p => p.date?.startsWith(month));
+  $("overview-link").classList.toggle("active", activePlatform === "all");
+  if (activePlatform === "all") $("overview-link").setAttribute("aria-current","page");
+  else $("overview-link").removeAttribute("aria-current");
+  $("platform-nav").innerHTML = platforms.map(name => {
+    const count = visiblePosts.filter(p => p.platform === name).length;
+    return `<a class="platform-link ${activePlatform === name ? "active" : ""}" href="#${name.toLowerCase()}" ${activePlatform === name ? 'aria-current="page"' : ""}><span>${name}</span><small>${count}</small></a>`;
   }).join("");
+  $("platform-grid").hidden = activePlatform !== "all";
+  $("platform-grid").innerHTML = platforms.map(name => {
+    const count = visiblePosts.filter(p => p.platform === name).length;
+    const word = count % 10 === 1 && count % 100 !== 11 ? "публикация" : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? "публикации" : "публикаций";
+    return `<a class="platform-card" href="#${name.toLowerCase()}"><strong>${name}</strong><span>${count} ${word} в плане</span><em aria-hidden="true">↗</em></a>`;
+  }).join("");
+  $("page-title").textContent = activePlatform === "all" ? "Контент-план" : activePlatform;
+  document.title = (activePlatform === "all" ? "Контент-план" : activePlatform) + " — Devenas Leads";
+  $("page-subhead").textContent = activePlatform === "all" ? "Идеи, тексты и публикации для всех твоих площадок." : "Темы, черновики и публикации для " + activePlatform + ".";
+  $("breadcrumb-current").textContent = activePlatform === "all" ? "Контент-план" : activePlatform;
+  $("overview-back").hidden = activePlatform === "all";
   $("stats").innerHTML = [
-    ["Всего публикаций",visiblePosts.length],["Идей",visiblePosts.filter(p => p.status === "idea").length],
-    ["Готово",visiblePosts.filter(p => p.status === "ready").length],["Опубликовано",visiblePosts.filter(p => p.status === "published").length]
+    ["Всего публикаций",sectionPosts.length],["Идей",sectionPosts.filter(p => p.status === "idea").length],
+    ["Готово",sectionPosts.filter(p => p.status === "ready").length],["Опубликовано",sectionPosts.filter(p => p.status === "published").length]
   ].map(([name,count]) => `<div class="stat"><span>${name}</span><strong>${count}</strong></div>`).join("");
   const query = $("search").value.trim().toLocaleLowerCase();
-  const filtered = monthPosts.filter(p => (activePlatform === "all" || p.platform === activePlatform) && (!$("account").value || p.account === $("account").value) && (!$("status").value || p.status === $("status").value) && (!query || [p.title,p.text].join(" ").toLocaleLowerCase().includes(query))).sort((a,b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
+  const filtered = monthPosts.filter(p => (!$("account").value || p.account === $("account").value) && (!$("status").value || p.status === $("status").value) && (!query || [p.title,p.text].join(" ").toLocaleLowerCase().includes(query))).sort((a,b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
   if (!filtered.length) { $("posts").innerHTML = '<div class="empty"><strong>В этом месяце публикаций пока нет</strong>Добавь новую запись или поменяй фильтры.</div>'; return; }
   const days = [...new Set(filtered.map(p => p.date))];
   $("posts").innerHTML = days.map(date => `<div class="day-head">${esc(nice(date))}</div>` + filtered.filter(p => p.date === date).map(p => {
@@ -157,7 +191,16 @@ function closeForm() { $("modal").hidden = true; editing = null; }
 $("prev").onclick = () => navigate(-1);
 $("next").onclick = () => navigate(1);
 for (const id of ["search","account","status"]) $(id).addEventListener(id === "search" ? "input" : "change", render);
-$("platform-tabs").onclick = event => { const value = event.target.closest("[data-platform]")?.dataset.platform; if (value && (value === "all" || platforms.includes(value))) { activePlatform = value; render(); } };
+function changeSection() {
+  activePlatform = platformFromHash();
+  $("search").value = $("account").value = $("status").value = "";
+  const dates = posts.filter(p => p.platform === activePlatform).map(p => p.date).filter(Boolean).sort();
+  if (activePlatform !== "all" && dates.length && !dates.some(date => date.startsWith(month))) month = dates[0].slice(0,7);
+  $("sidebar").classList.remove("open"); $("backdrop").hidden = true;
+  window.scrollTo(0,0);
+  render();
+}
+window.addEventListener("hashchange", changeSection);
 $("add").onclick = () => openForm(null);
 $("close").onclick = $("cancel").onclick = closeForm;
 $("posts").addEventListener("click", event => { const id = event.target.closest("[data-edit]")?.dataset.edit; if (id) openForm(posts.find(p => p.id === id)); });
@@ -172,13 +215,14 @@ $("form").onsubmit = event => {
   Object.assign(item,value);
   if (!editing) posts.push(item);
   month = value.date.slice(0,7);
-  if (activePlatform !== "all") activePlatform = value.platform;
-  save(); closeForm(); render();
+  save(); closeForm();
+  if (activePlatform !== "all" && activePlatform !== value.platform) location.hash = value.platform.toLowerCase();
+  else render();
 };
 $("delete").onclick = () => { const post = posts.find(p => p.id === editing); if (!post || !confirm(`Удалить «${post.title}»?`)) return; posts = posts.filter(p => p.id !== editing); save(); closeForm(); render(); };
 $("menu").onclick = () => { $("sidebar").classList.add("open"); $("backdrop").hidden = false; };
 $("backdrop").onclick = () => { $("sidebar").classList.remove("open"); $("backdrop").hidden = true; };
 document.addEventListener("keydown", event => { if (event.key === "Escape" && !$("modal").hidden) closeForm(); });
-render();
+changeSection();
 </script>
 </body></html>
