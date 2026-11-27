@@ -27,6 +27,11 @@
     .stats{gap:var(--card-gap);margin-bottom:var(--section-gap)}
     .stat{padding:20px;min-height:124px}
     .panel-head{padding:var(--inner-gutter)}
+    .platform-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:0 var(--inner-gutter) 16px;border-bottom:1px solid var(--border)}
+    .platform-tab{border:1px solid #485466;background:#303844;color:#c9d5e5;border-radius:9px;padding:9px 12px;white-space:nowrap;font-weight:400}
+    .platform-tab.active{border-color:#5a90ec;background:#3d76d6;color:white}
+    .platform-tab small{margin-left:7px;opacity:.75;font-size:11px}
+    .filters{grid-template-columns:minmax(180px,2fr) repeat(2,minmax(150px,1fr))}
     .filters{padding:16px var(--inner-gutter) var(--inner-gutter);gap:var(--card-gap)}
     .day-head{padding:12px var(--inner-gutter)}
     .post{padding:16px var(--inner-gutter)}
@@ -41,6 +46,8 @@
       .stats{gap:var(--card-gap);margin-bottom:var(--section-gap)}
       .stat{min-height:116px;padding:16px}
       .panel-head{padding:var(--inner-gutter)}
+      .platform-tabs{padding:0 var(--inner-gutter) var(--inner-gutter)}
+      .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
       .filters{padding:var(--inner-gutter);gap:var(--card-gap)}
       .day-head{padding:12px var(--inner-gutter)}
       .post{padding:var(--inner-gutter)}
@@ -66,10 +73,11 @@
       <div class="stats" id="stats"></div>
       <section class="panel">
         <div class="panel-head"><h2>Публикации</h2><div class="month-tools"><button id="prev" aria-label="Предыдущий месяц">‹</button><strong id="month"></strong><button id="next" aria-label="Следующий месяц">›</button></div></div>
-        <div class="filters"><input id="search" aria-label="Поиск по публикациям" placeholder="Поиск по темам и текстам"><select id="account" aria-label="Аккаунт"><option value="">Все аккаунты</option><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select><select id="platform" aria-label="Площадка"><option value="">Все площадки</option><option>Threads</option><option>Instagram</option><option>Telegram</option><option>VK</option><option>Pinterest</option><option>LinkedIn</option><option>Behance</option></select><select id="status" aria-label="Статус"><option value="">Все статусы</option><option value="idea">Идея</option><option value="draft">Черновик</option><option value="ready">Готово</option><option value="published">Опубликовано</option></select></div>
+        <nav class="platform-tabs" id="platform-tabs" aria-label="Разделы по площадкам"></nav>
+        <div class="filters"><input id="search" aria-label="Поиск по публикациям" placeholder="Поиск по темам и текстам"><select id="account" aria-label="Аккаунт"><option value="">Все аккаунты</option><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select><select id="status" aria-label="Статус"><option value="">Все статусы</option><option value="idea">Идея</option><option value="draft">Черновик</option><option value="ready">Готово</option><option value="published">Опубликовано</option></select></div>
         <div id="posts"></div>
       </section>
-      <p class="hint">✦ План перенесён из твоего черновика от 6 ноября. Отметки и новые публикации сохраняются только в этом браузере: на другом устройстве будет отдельный список.</p>
+      <p class="hint">✦ План перенесён из твоего черновика от 6 ноября. ВК скрыт из разделов, прежние записи не удалены. Изменения сохраняются только в этом браузере.</p>
     </div>
   </main>
 </div>
@@ -81,7 +89,7 @@
         <label class="wide">Тема или заголовок *<input name="title" maxlength="180" required placeholder="О чём этот пост?"></label>
         <label>Дата<input name="date" type="date" required></label>
         <label>Статус<select name="status"><option value="idea">Идея</option><option value="draft">Черновик</option><option value="ready">Готово</option><option value="published">Опубликовано</option></select></label>
-        <label>Площадка<select name="platform"><option>Threads</option><option>Instagram</option><option>Telegram</option><option>VK</option><option>Pinterest</option><option>LinkedIn</option><option>Behance</option></select></label>
+        <label>Площадка<select name="platform"><option>Threads</option><option>LinkedIn</option><option>Instagram</option><option>Telegram</option><option>Pinterest</option><option>Behance</option></select></label>
         <label>Аккаунт<select name="account"><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select></label>
         <label class="wide">Текст или заметки<textarea name="text" placeholder="Черновик поста, тезисы или что подготовить"></textarea></label>
         <label class="wide">Ссылка на опубликованный пост<input name="url" type="url" placeholder="https://…"></label>
@@ -100,19 +108,26 @@ const today = () => new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Yekaterinb
 const nice = date => new Date(date + "T12:00:00Z").toLocaleDateString("ru-RU", { day:"numeric", month:"long", weekday:"long", timeZone:"UTC" });
 const safeUrl = value => { try { const u = new URL(value); return ["https:","http:"].includes(u.protocol) ? u.href : ""; } catch { return ""; } };
 let posts;
-try { const saved = localStorage.getItem(KEY); posts = saved === null ? SEED.map(p => ({...p})) : JSON.parse(saved); if (!Array.isArray(posts)) throw new Error("bad data"); }
-catch { posts = SEED.map(p => ({...p})); }
-let month = today().slice(0,7), editing = null;
+try { const saved = localStorage.getItem(KEY); posts = saved === null ? SEED.filter(p => p.platform !== "VK").map(p => ({...p})) : JSON.parse(saved); if (!Array.isArray(posts)) throw new Error("bad data"); }
+catch { posts = SEED.filter(p => p.platform !== "VK").map(p => ({...p})); }
+let month = today().slice(0,7), editing = null, activePlatform = "all";
+const platforms = ["Threads","LinkedIn","Instagram","Telegram","Pinterest","Behance"];
 const labels = { idea:"Идея", draft:"Черновик", ready:"Готово", published:"Опубликовано" };
 function save() { try { localStorage.setItem(KEY, JSON.stringify(posts)); } catch { alert("Не удалось сохранить. Проверь свободное место и настройки браузера."); } }
 function render() {
-  $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(/\\s?г\\.$/, "");
+  $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(" г.", "");
+  const visiblePosts = posts.filter(p => platforms.includes(p.platform));
+  const monthPosts = visiblePosts.filter(p => p.date?.startsWith(month));
+  $("platform-tabs").innerHTML = [["all","Все"],...platforms.map(name => [name,name])].map(([value,label]) => {
+    const count = value === "all" ? monthPosts.length : monthPosts.filter(p => p.platform === value).length;
+    return `<button class="platform-tab ${activePlatform === value ? "active" : ""}" type="button" data-platform="${value}" aria-pressed="${activePlatform === value}">${label}<small>${count}</small></button>`;
+  }).join("");
   $("stats").innerHTML = [
-    ["Всего публикаций",posts.length],["Идей",posts.filter(p => p.status === "idea").length],
-    ["Готово",posts.filter(p => p.status === "ready").length],["Опубликовано",posts.filter(p => p.status === "published").length]
+    ["Всего публикаций",visiblePosts.length],["Идей",visiblePosts.filter(p => p.status === "idea").length],
+    ["Готово",visiblePosts.filter(p => p.status === "ready").length],["Опубликовано",visiblePosts.filter(p => p.status === "published").length]
   ].map(([name,count]) => `<div class="stat"><span>${name}</span><strong>${count}</strong></div>`).join("");
   const query = $("search").value.trim().toLocaleLowerCase();
-  const filtered = posts.filter(p => p.date?.startsWith(month) && (!$("account").value || p.account === $("account").value) && (!$("platform").value || p.platform === $("platform").value) && (!$("status").value || p.status === $("status").value) && (!query || [p.title,p.text].join(" ").toLocaleLowerCase().includes(query))).sort((a,b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
+  const filtered = monthPosts.filter(p => (activePlatform === "all" || p.platform === activePlatform) && (!$("account").value || p.account === $("account").value) && (!$("status").value || p.status === $("status").value) && (!query || [p.title,p.text].join(" ").toLocaleLowerCase().includes(query))).sort((a,b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
   if (!filtered.length) { $("posts").innerHTML = '<div class="empty"><strong>В этом месяце публикаций пока нет</strong>Добавь новую запись или поменяй фильтры.</div>'; return; }
   const days = [...new Set(filtered.map(p => p.date))];
   $("posts").innerHTML = days.map(date => `<div class="day-head">${esc(nice(date))}</div>` + filtered.filter(p => p.date === date).map(p => {
@@ -132,6 +147,7 @@ function openForm(post) {
   $("form-title").textContent = post ? "Редактировать публикацию" : "Новая публикация";
   const fields = $("form").elements;
   fields.date.value = post?.date || today();
+  if (!post && activePlatform !== "all") fields.platform.value = activePlatform;
   if (post) for (const name of ["title","status","platform","account","text","url"]) fields[name].value = post[name] || "";
   $("delete").hidden = !post;
   $("modal").hidden = false;
@@ -140,7 +156,8 @@ function openForm(post) {
 function closeForm() { $("modal").hidden = true; editing = null; }
 $("prev").onclick = () => navigate(-1);
 $("next").onclick = () => navigate(1);
-for (const id of ["search","account","platform","status"]) $(id).addEventListener(id === "search" ? "input" : "change", render);
+for (const id of ["search","account","status"]) $(id).addEventListener(id === "search" ? "input" : "change", render);
+$("platform-tabs").onclick = event => { const value = event.target.closest("[data-platform]")?.dataset.platform; if (value && (value === "all" || platforms.includes(value))) { activePlatform = value; render(); } };
 $("add").onclick = () => openForm(null);
 $("close").onclick = $("cancel").onclick = closeForm;
 $("posts").addEventListener("click", event => { const id = event.target.closest("[data-edit]")?.dataset.edit; if (id) openForm(posts.find(p => p.id === id)); });
@@ -155,6 +172,7 @@ $("form").onsubmit = event => {
   Object.assign(item,value);
   if (!editing) posts.push(item);
   month = value.date.slice(0,7);
+  if (activePlatform !== "all") activePlatform = value.platform;
   save(); closeForm(); render();
 };
 $("delete").onclick = () => { const post = posts.find(p => p.id === editing); if (!post || !confirm(`Удалить «${post.title}»?`)) return; posts = posts.filter(p => p.id !== editing); save(); closeForm(); render(); };
