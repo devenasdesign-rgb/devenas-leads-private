@@ -106,7 +106,7 @@ let month = today().slice(0,7), editing = null;
 const labels = { idea:"Идея", draft:"Черновик", ready:"Готово", published:"Опубликовано" };
 function save() { try { localStorage.setItem(KEY, JSON.stringify(posts)); } catch { alert("Не удалось сохранить. Проверь свободное место и настройки браузера."); } }
 function render() {
-  $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" });
+  $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(/\\s?г\\.$/, "");
   $("stats").innerHTML = [
     ["Всего публикаций",posts.length],["Идей",posts.filter(p => p.status === "idea").length],
     ["Готово",posts.filter(p => p.status === "ready").length],["Опубликовано",posts.filter(p => p.status === "published").length]
