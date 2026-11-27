@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const read = name => readFileSync(resolve(root, "worker", name), "utf8");
@@ -8,3 +8,6 @@ const page = read("ui.html")
   .replace("Пока запросы добавляются вручную.", "Локальная версия для проверки.")
   .replace("Это первая версия. Следующим шагом подключим поиск доступных публикаций и уведомления.", "Карточки сохраняются в этом браузере. После публикации подключим хранение между устройствами и поиск публикаций.");
 writeFileSync(resolve(root, "Devenas-Leads.html"), page);
+mkdirSync(resolve(root, "docs"), { recursive: true });
+writeFileSync(resolve(root, "docs", "index.html"), page);
+writeFileSync(resolve(root, "docs", "content-plan.html"), read("content-plan.html"));
