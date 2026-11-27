@@ -43,11 +43,12 @@ $("#add").onclick = () => openForm();
 $("#close").onclick = closeForm;
 $("#cancel").onclick = closeForm;
 $("#modal-layer").onclick = e => { if (e.target === $("#modal-layer")) closeForm(); };
-$("#menu").onclick = () => $("#sidebar").classList.add("sidebar-open");
-$("#backdrop").onclick = () => $("#sidebar").classList.remove("sidebar-open");
+const closeMenu = () => { $("#sidebar").classList.remove("sidebar-open"); $("#backdrop").hidden = true; $("#menu").setAttribute("aria-expanded", "false"); };
+$("#menu").onclick = () => { $("#sidebar").classList.add("sidebar-open"); $("#backdrop").hidden = false; $("#menu").setAttribute("aria-expanded", "true"); };
+$("#backdrop").onclick = closeMenu;
 $("#search").oninput = e => { state.query = e.target.value; render(); };
 $("#source-filter").onchange = e => { state.source = e.target.value; render(); };
-$("#nav").onclick = e => { const button = e.target.closest("[data-filter]"); if (!button) return; state.filter = button.dataset.filter; $("#sidebar").classList.remove("sidebar-open"); render(); };
+$("#nav").onclick = e => { const button = e.target.closest("[data-filter]"); if (!button) return; state.filter = button.dataset.filter; closeMenu(); render(); };
 $("#list").onclick = e => { if (e.target.closest("#empty-add")) openForm(); const button = e.target.closest("[data-edit]"); if (button) openForm(state.leads.find(x => x.id === Number(button.dataset.edit))); };
 $("#list").onchange = async e => {
   const select = e.target.closest("[data-status]"); if (!select) return;
