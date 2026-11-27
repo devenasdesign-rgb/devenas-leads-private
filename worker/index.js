@@ -2,6 +2,7 @@ const page = __HTML__;
 const styles = __CSS__;
 const client = __JS__;
 const contentPlan = __PLAN_HTML__;
+const strategyPage = __STRATEGY_HTML__;
 const sources = ["Threads", "Instagram", "Pinterest", "Telegram", "Сайт", "Рекомендация", "Другое"];
 const statuses = ["new", "saved", "replied", "talking", "proposal", "won", "closed"];
 const priorities = ["high", "medium", "low"];
@@ -130,6 +131,7 @@ export default {
     if (request.method !== "GET") return new Response("Method not allowed", { status: 405 });
     if (path === "/") return new Response(page, { headers: { ...privateHeaders, "content-type": "text/html; charset=utf-8" } });
     if (path === "/content-plan.html") return new Response(contentPlan, { headers: { ...privateHeaders, "content-type": "text/html; charset=utf-8" } });
+    if (path === "/strategy.html") return new Response(strategyPage, { headers: { ...privateHeaders, "content-type": "text/html; charset=utf-8" } });
     if (path === "/ui.css") return new Response(styles, { headers: { ...privateHeaders, "content-type": "text/css; charset=utf-8" } });
     if (path === "/ui.js") return new Response(client, { headers: { ...privateHeaders, "content-type": "application/javascript; charset=utf-8" } });
     return new Response("Not found", { status: 404 });

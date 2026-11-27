@@ -45,6 +45,11 @@
     .platform-card em{align-self:flex-end;font-style:normal;color:#94baff;font-size:20px}
     .back-link{display:inline-block;color:#9bc2ff;font-size:13px;margin:0 0 12px}
     .back-link:hover{text-decoration:underline}
+    .cycle-card{display:flex;justify-content:space-between;gap:18px;align-items:center;border:1px solid #49658d;background:#29394f;border-radius:15px;padding:20px 24px;margin-bottom:var(--section-gap)}
+    .cycle-card[hidden],.all-days[hidden]{display:none}
+    .cycle-card strong{font-size:18px;font-weight:500}.cycle-card p{font-size:13px;color:#b9c9df;margin:7px 0 0}.cycle-actions{display:flex;gap:9px;flex-wrap:wrap}.cycle-actions a{color:#d8e8ff;border:1px solid #617b9f;border-radius:9px;padding:10px 13px;white-space:nowrap;font-size:13px}.cycle-actions a:hover{background:#3a506e}
+    .month-tools .all-days{width:auto;padding:0 10px;font-size:12px;white-space:nowrap}.month-tools .all-days.active{background:#3d76d6;border-color:#3d76d6;color:white}
+    .visual-preview{font-size:12px;color:#9fc4ff;margin:7px 0 0}.archive-link{font-size:12px;color:#9bc2ff;padding:12px 14px;display:block}.archive-link:hover{text-decoration:underline}
     .filters{grid-template-columns:minmax(180px,2fr) repeat(2,minmax(150px,1fr))}
     .filters{padding:16px var(--inner-gutter) var(--inner-gutter);gap:var(--card-gap)}
     .day-head{padding:12px var(--inner-gutter)}
@@ -63,6 +68,8 @@
       .platform-tabs{padding:0 var(--inner-gutter) var(--inner-gutter)}
       .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .platform-card{padding:16px;min-height:106px}
+      .cycle-card{align-items:stretch;flex-direction:column;padding:16px}.cycle-actions a{flex:1;text-align:center}
+      .month-tools{flex-wrap:wrap}.month-tools strong{min-width:125px}
       .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
       .filters{padding:var(--inner-gutter);gap:var(--card-gap)}
       .day-head{padding:12px var(--inner-gutter)}
@@ -79,8 +86,10 @@
     <a class="nav-item" href="./"><span class="nav-icon" aria-hidden="true">▦</span><span>Тёплые запросы</span></a>
     <div class="side-title section-break">КОНТЕНТ</div>
     <a class="nav-item" href="#all" id="overview-link"><span class="nav-icon" aria-hidden="true">▤</span><span>Контент-план</span></a>
+    <a class="nav-item" href="./strategy.html"><span class="nav-icon" aria-hidden="true">◎</span><span>Стратегия на декабрь</span></a>
     <nav class="platform-nav" id="platform-nav" aria-label="Площадки контент-плана"></nav>
-    <div class="side-bottom"><div class="side-card"><strong>От идеи до публикации</strong><p>Планируй посты для двух аккаунтов и отмечай, что уже вышло.</p></div><div class="side-foot">DEVENAS LEADS · КОНТЕНТ</div></div>
+    <a class="archive-link" href="#archive">Предыдущие черновики</a>
+    <div class="side-bottom"><div class="side-card"><strong>30 дней контента</strong><p>Темы, визуалы и статусы публикаций по площадкам.</p></div><div class="side-foot">DEVENAS LEADS · КОНТЕНТ</div></div>
   </aside>
   <button class="backdrop" id="backdrop" aria-label="Закрыть меню" hidden></button>
   <main class="main">
@@ -88,13 +97,14 @@
     <div class="content">
       <div class="heading"><div><a class="back-link" href="#all" id="overview-back" hidden>← Все площадки</a><p class="eyebrow">ТВОЙ КОНТЕНТ ПО ДНЯМ</p><h1><span id="page-title">Контент-план</span><span class="spark">✳</span></h1><p class="subhead" id="page-subhead">Идеи, тексты и публикации для всех твоих площадок.</p></div><button class="primary" id="add">＋ Добавить публикацию</button></div>
       <div class="stats" id="stats"></div>
+      <div class="cycle-card" id="cycle-card"><div><strong>План на 30 ноября — 29 декабря</strong><p>69 материалов: от коротких мыслей в Threads до двух кейсов Behance. Внутри каждой карточки — задача и визуал.</p></div><div class="cycle-actions"><a href="./strategy.html">Стратегия и визуалы</a><a href="https://app.notion.com/p/4257ca5ea34381a4bb50e46a861bbd73" target="_blank" rel="noopener noreferrer">Оригинал в Notion</a></div></div>
       <div class="platform-grid" id="platform-grid" aria-label="Выбери площадку"></div>
       <section class="panel">
-        <div class="panel-head"><h2>Публикации</h2><div class="month-tools"><button id="prev" aria-label="Предыдущий месяц">‹</button><strong id="month"></strong><button id="next" aria-label="Следующий месяц">›</button></div></div>
+        <div class="panel-head"><h2>Публикации</h2><div class="month-tools"><button id="all-days" class="all-days" type="button">Все 30 дней</button><button id="prev" aria-label="Предыдущий месяц">‹</button><strong id="month"></strong><button id="next" aria-label="Следующий месяц">›</button></div></div>
         <div class="filters"><input id="search" aria-label="Поиск по публикациям" placeholder="Поиск по темам и текстам"><select id="account" aria-label="Аккаунт"><option value="">Все аккаунты</option><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select><select id="status" aria-label="Статус"><option value="">Все статусы</option><option value="idea">Идея</option><option value="draft">Черновик</option><option value="ready">Готово</option><option value="published">Опубликовано</option></select></div>
         <div id="posts"></div>
       </section>
-      <p class="hint">✦ План перенесён из твоего черновика от 6 ноября. ВК скрыт из разделов, прежние записи не удалены. Изменения сохраняются только в этом браузере.</p>
+      <p class="hint">✦ Декабрьский план перенесён из Notion. Изменения в этой панели сохраняются только в этом браузере и не обновляют страницу Notion. Предыдущие записи сохранены в архиве, ВК скрыт.</p>
     </div>
   </main>
 </div>
@@ -109,6 +119,7 @@
         <label>Площадка<select name="platform"><option>Threads</option><option>LinkedIn</option><option>Instagram</option><option>Telegram</option><option>Pinterest</option><option>Behance</option></select></label>
         <label>Аккаунт<select name="account"><option>devenas.design</option><option>deven.a.s</option><option>Devenas Design</option></select></label>
         <label class="wide">Текст или заметки<textarea name="text" placeholder="Черновик поста, тезисы или что подготовить"></textarea></label>
+        <label class="wide">Что подготовить визуально<textarea name="visual" placeholder="Экраны, обложка, карточки, схема…"></textarea></label>
         <label class="wide">Ссылка на опубликованный пост<input name="url" type="url" placeholder="https://…"></label>
         <p class="note wide">Можно сначала сохранить только тему, а текст добавить позже.</p>
       </div>
@@ -118,26 +129,40 @@
 </div>
 <script>
 const SEED = [{"id":"notion-83","date":"2026-11-27","platform":"Instagram","account":"deven.a.s","title":"Carousel: Simple Systems identity & website","status":"idea","text":"","url":""},{"id":"notion-84","date":"2026-11-27","platform":"Instagram","account":"devenas.design","title":"Карусель: «Простые системы»","status":"idea","text":"","url":""},{"id":"notion-85","date":"2026-11-27","platform":"Pinterest","account":"Devenas Design","title":"Brand identity for a technical services company","status":"idea","text":"","url":""},{"id":"notion-86","date":"2026-11-27","platform":"Threads","account":"devenas.design","title":"Как я пересматривала туристический сайт","status":"idea","text":"","url":""},{"id":"notion-87","date":"2026-11-27","platform":"VK","account":"devenas.design","title":"Сайт и фирменный стиль для «Простых систем»","status":"idea","text":"","url":""},{"id":"notion-88","date":"2026-11-28","platform":"Telegram","account":"devenas.design","title":"Кейс «Простые системы»: система бренда и сайт","status":"idea","text":"","url":""},{"id":"notion-89","date":"2026-11-28","platform":"Threads","account":"devenas.design","title":"Почему интернет-магазин сложнее обычного лендинга","status":"idea","text":"","url":""},{"id":"notion-90","date":"2026-11-28","platform":"Threads","account":"deven.a.s","title":"E-commerce UX goes beyond a homepage","status":"idea","text":"","url":""},{"id":"notion-91","date":"2026-11-29","platform":"Pinterest","account":"Devenas Design","title":"Modern service company website UI","status":"idea","text":"","url":""},{"id":"notion-92","date":"2026-11-29","platform":"Threads","account":"devenas.design","title":"Как выглядит мой рабочий процесс в Figma","status":"idea","text":"","url":""},{"id":"notion-93","date":"2026-11-30","platform":"Instagram","account":"devenas.design","title":"Карусель: редизайн Adventurebro","status":"idea","text":"","url":""},{"id":"notion-94","date":"2026-11-30","platform":"LinkedIn","account":"Devenas Design","title":"E-commerce design: mapping the full journey","status":"idea","text":"","url":""},{"id":"notion-95","date":"2026-11-30","platform":"Threads","account":"devenas.design","title":"Логотип сам по себе редко решает вопрос стиля","status":"idea","text":"","url":""},{"id":"notion-96","date":"2026-11-30","platform":"Threads","account":"deven.a.s","title":"A redesign needs a reason","status":"idea","text":"","url":""},{"id":"notion-97","date":"2026-12-01","platform":"Instagram","account":"deven.a.s","title":"Carousel: Adventurebro redesign","status":"idea","text":"","url":""},{"id":"notion-98","date":"2026-12-01","platform":"Instagram","account":"devenas.design","title":"Сторис: обычный день самостоятельного дизайнера","status":"idea","text":"","url":""},{"id":"notion-99","date":"2026-12-01","platform":"Pinterest","account":"Devenas Design","title":"Travel website redesign inspiration","status":"idea","text":"","url":""},{"id":"notion-100","date":"2026-12-01","platform":"Threads","account":"devenas.design","title":"Открыта к сотрудничеству со студиями","status":"idea","text":"","url":""},{"id":"notion-101","date":"2026-12-01","platform":"VK","account":"devenas.design","title":"Интернет-магазин: что входит в разработку","status":"idea","text":"","url":""},{"id":"notion-102","date":"2026-12-02","platform":"Behance","account":"Devenas Design","title":"Adventurebro | Travel Website Redesign","status":"idea","text":"","url":""},{"id":"notion-103","date":"2026-12-02","platform":"Pinterest","account":"Devenas Design","title":"E-commerce product page UI design","status":"idea","text":"","url":""},{"id":"notion-104","date":"2026-12-02","platform":"Telegram","account":"devenas.design","title":"Что мне дают нейросети при сборке сайтов","status":"idea","text":"","url":""},{"id":"notion-105","date":"2026-12-02","platform":"Threads","account":"deven.a.s","title":"Open to small studio collaborations","status":"idea","text":"","url":""},{"id":"notion-106","date":"2026-12-03","platform":"Instagram","account":"devenas.design","title":"Сторис: вопросы о работе со мной","status":"idea","text":"","url":""},{"id":"notion-107","date":"2026-12-03","platform":"LinkedIn","account":"Devenas Design","title":"Why websites need both traffic and a clear message","status":"idea","text":"","url":""},{"id":"notion-108","date":"2026-12-03","platform":"Threads","account":"devenas.design","title":"Почему с сайта не приходят заявки","status":"idea","text":"","url":""},{"id":"notion-109","date":"2026-12-03","platform":"Threads","account":"deven.a.s","title":"A website needs visitors and a clear next step","status":"idea","text":"","url":""},{"id":"notion-110","date":"2026-12-04","platform":"Instagram","account":"devenas.design","title":"Карусель: что проверить, если сайт не продаёт","status":"idea","text":"","url":""},{"id":"notion-111","date":"2026-12-04","platform":"Instagram","account":"deven.a.s","title":"Carousel: website enquiry journey","status":"idea","text":"","url":""},{"id":"notion-112","date":"2026-12-04","platform":"Pinterest","account":"Devenas Design","title":"Service business website homepage design","status":"idea","text":"","url":""},{"id":"notion-113","date":"2026-12-04","platform":"Threads","account":"devenas.design","title":"Что подготовить перед заказом сайта","status":"idea","text":"","url":""},{"id":"notion-114","date":"2026-12-04","platform":"VK","account":"devenas.design","title":"Нужен сайт к запуску бизнеса? С чего начать","status":"idea","text":"","url":""},{"id":"notion-115","date":"2026-12-05","platform":"Telegram","account":"devenas.design","title":"Рабочий разбор: что я проверяю перед запуском","status":"idea","text":"","url":""},{"id":"notion-116","date":"2026-12-05","platform":"Threads","account":"devenas.design","title":"Какой сайт нужен частному специалисту","status":"idea","text":"","url":""},{"id":"notion-117","date":"2026-12-05","platform":"Threads","account":"deven.a.s","title":"What a service business website should communicate","status":"idea","text":"","url":""},{"id":"notion-118","date":"2026-12-06","platform":"Pinterest","account":"Devenas Design","title":"Private practice website UI design","status":"idea","text":"","url":""},{"id":"notion-119","date":"2026-12-06","platform":"Threads","account":"devenas.design","title":"Можно ли успеть начать сайт до Нового года","status":"idea","text":"","url":""},{"id":"notion-120","date":"2026-12-07","platform":"Instagram","account":"devenas.design","title":"Карусель: сайт для частного специалиста","status":"idea","text":"","url":""},{"id":"notion-121","date":"2026-12-07","platform":"LinkedIn","account":"Devenas Design","title":"What a small business needs before starting a website","status":"idea","text":"","url":""},{"id":"notion-122","date":"2026-12-07","platform":"Threads","account":"devenas.design","title":"Что бизнес получает после запуска сайта","status":"idea","text":"","url":""},{"id":"notion-123","date":"2026-12-07","platform":"Threads","account":"deven.a.s","title":"Need a website for the new year?","status":"idea","text":"","url":""},{"id":"notion-124","date":"2026-12-08","platform":"Instagram","account":"devenas.design","title":"Сторис: как принимаю проект в работу","status":"idea","text":"","url":""},{"id":"notion-125","date":"2026-12-08","platform":"Instagram","account":"deven.a.s","title":"Carousel: website design details","status":"idea","text":"","url":""},{"id":"notion-126","date":"2026-12-08","platform":"Pinterest","account":"Devenas Design","title":"Modern contact page website design","status":"idea","text":"","url":""},{"id":"notion-127","date":"2026-12-08","platform":"Threads","account":"devenas.design","title":"Какая страница вашего сайта самая важная","status":"idea","text":"","url":""},{"id":"notion-128","date":"2026-12-08","platform":"VK","account":"devenas.design","title":"Проект в портфолио: корпоративный сайт","status":"idea","text":"","url":""},{"id":"notion-129","date":"2026-12-09","platform":"Pinterest","account":"Devenas Design","title":"Clean responsive website gallery","status":"idea","text":"","url":""},{"id":"notion-130","date":"2026-12-09","platform":"Telegram","account":"devenas.design","title":"Декабрьский рабочий итог с кейсами","status":"idea","text":"","url":""},{"id":"notion-131","date":"2026-12-09","platform":"Threads","account":"deven.a.s","title":"What's one thing you would change on your website?","status":"idea","text":"","url":""},{"id":"notion-132","date":"2026-12-10","platform":"Instagram","account":"devenas.design","title":"Сторис: мини-итоги месяца и вопрос","status":"idea","text":"","url":""},{"id":"notion-133","date":"2026-12-10","platform":"LinkedIn","account":"Devenas Design","title":"One month of independent design: lessons learned","status":"idea","text":"","url":""},{"id":"notion-134","date":"2026-12-10","platform":"Threads","account":"devenas.design","title":"Месяц самостоятельной работы: что получилось","status":"idea","text":"","url":""},{"id":"notion-135","date":"2026-12-11","platform":"Telegram","account":"devenas.design","title":"Итог первого месяца: проекты и рабочие выводы","status":"idea","text":"","url":""},{"id":"notion-136","date":"2026-12-11","platform":"Threads","account":"devenas.design","title":"Какие сайты могу взять в следующий месяц","status":"idea","text":"","url":""}];
+const DECEMBER_SEED = __DECEMBER_SEED__;
 const KEY = "devenas-content-plan-v1";
+const IMPORT_KEY = "devenas-content-december-2026-v1";
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[char]);
 const today = () => new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Yekaterinburg", year:"numeric", month:"2-digit", day:"2-digit" }).format(new Date());
 const nice = date => new Date(date + "T12:00:00Z").toLocaleDateString("ru-RU", { day:"numeric", month:"long", weekday:"long", timeZone:"UTC" });
 const safeUrl = value => { try { const u = new URL(value); return ["https:","http:"].includes(u.protocol) ? u.href : ""; } catch { return ""; } };
 let posts;
-try { const saved = localStorage.getItem(KEY); posts = saved === null ? SEED.filter(p => p.platform !== "VK").map(p => ({...p})) : JSON.parse(saved); if (!Array.isArray(posts)) throw new Error("bad data"); }
-catch { posts = SEED.filter(p => p.platform !== "VK").map(p => ({...p})); }
-let month = today().slice(0,7), editing = null, activePlatform = "all";
+try {
+  const saved = localStorage.getItem(KEY);
+  posts = saved === null ? SEED.filter(p => p.platform !== "VK").map(p => ({...p})) : JSON.parse(saved);
+  if (!Array.isArray(posts)) throw new Error("bad data");
+  posts.forEach(p => { if (!p.campaign) p.campaign = String(p.id).startsWith("notion-") ? "archive" : "december-2026"; });
+  if (!localStorage.getItem(IMPORT_KEY)) {
+    const known = new Set(posts.map(p => p.id));
+    posts.push(...DECEMBER_SEED.filter(p => !known.has(p.id)).map(p => ({...p})));
+    localStorage.setItem(KEY, JSON.stringify(posts));
+    localStorage.setItem(IMPORT_KEY, "1");
+  }
+} catch { posts = [...SEED.filter(p => p.platform !== "VK").map(p => ({...p,campaign:"archive"})),...DECEMBER_SEED.map(p => ({...p}))]; }
+let month = "2026-12", period = "cycle", editing = null, activePlatform = "all";
 const platforms = ["Threads","LinkedIn","Instagram","Telegram","Pinterest","Behance"];
-const platformFromHash = () => platforms.find(name => name.toLowerCase() === location.hash.slice(1).toLowerCase()) || "all";
+const platformFromHash = () => location.hash === "#archive" ? "archive" : platforms.find(name => name.toLowerCase() === location.hash.slice(1).toLowerCase()) || "all";
 activePlatform = platformFromHash();
 const labels = { idea:"Идея", draft:"Черновик", ready:"Готово", published:"Опубликовано" };
 function save() { try { localStorage.setItem(KEY, JSON.stringify(posts)); } catch { alert("Не удалось сохранить. Проверь свободное место и настройки браузера."); } }
 function render() {
-  $("month").textContent = new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(" г.", "");
-  const visiblePosts = posts.filter(p => platforms.includes(p.platform));
-  const sectionPosts = activePlatform === "all" ? visiblePosts : visiblePosts.filter(p => p.platform === activePlatform);
-  const monthPosts = sectionPosts.filter(p => p.date?.startsWith(month));
+  $("month").textContent = period === "cycle" ? "30.11 — 29.12" : new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(" г.", "");
+  $("all-days").classList.toggle("active", period === "cycle");
+  const visiblePosts = posts.filter(p => platforms.includes(p.platform) && p.campaign !== "archive");
+  const archivedPosts = posts.filter(p => platforms.includes(p.platform) && p.campaign === "archive");
+  const sectionPosts = activePlatform === "archive" ? archivedPosts : activePlatform === "all" ? visiblePosts : visiblePosts.filter(p => p.platform === activePlatform);
+  const monthPosts = sectionPosts.filter(p => period === "cycle" ? p.date >= "2026-11-30" && p.date <= "2026-12-29" : p.date?.startsWith(month));
   $("overview-link").classList.toggle("active", activePlatform === "all");
   if (activePlatform === "all") $("overview-link").setAttribute("aria-current","page");
   else $("overview-link").removeAttribute("aria-current");
@@ -146,15 +171,17 @@ function render() {
     return `<a class="platform-link ${activePlatform === name ? "active" : ""}" href="#${name.toLowerCase()}" ${activePlatform === name ? 'aria-current="page"' : ""}><span>${name}</span><small>${count}</small></a>`;
   }).join("");
   $("platform-grid").hidden = activePlatform !== "all";
+  $("cycle-card").hidden = activePlatform === "archive";
+  $("all-days").hidden = activePlatform === "archive";
   $("platform-grid").innerHTML = platforms.map(name => {
     const count = visiblePosts.filter(p => p.platform === name).length;
     const word = count % 10 === 1 && count % 100 !== 11 ? "публикация" : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? "публикации" : "публикаций";
     return `<a class="platform-card" href="#${name.toLowerCase()}"><strong>${name}</strong><span>${count} ${word} в плане</span><em aria-hidden="true">↗</em></a>`;
   }).join("");
-  $("page-title").textContent = activePlatform === "all" ? "Контент-план" : activePlatform;
-  document.title = (activePlatform === "all" ? "Контент-план" : activePlatform) + " — Devenas Leads";
-  $("page-subhead").textContent = activePlatform === "all" ? "Идеи, тексты и публикации для всех твоих площадок." : "Темы, черновики и публикации для " + activePlatform + ".";
-  $("breadcrumb-current").textContent = activePlatform === "all" ? "Контент-план" : activePlatform;
+  $("page-title").textContent = activePlatform === "all" ? "Контент-план" : activePlatform === "archive" ? "Предыдущие черновики" : activePlatform;
+  document.title = $("page-title").textContent + " — Devenas Leads";
+  $("page-subhead").textContent = activePlatform === "all" ? "30 дней идей, текстов и публикаций по площадкам." : activePlatform === "archive" ? "Идеи прошлого цикла сохранены отдельно от декабрьского плана." : "Темы, черновики и публикации для " + activePlatform + ".";
+  $("breadcrumb-current").textContent = $("page-title").textContent;
   $("overview-back").hidden = activePlatform === "all";
   $("stats").innerHTML = [
     ["Всего публикаций",sectionPosts.length],["Идей",sectionPosts.filter(p => p.status === "idea").length],
@@ -166,10 +193,11 @@ function render() {
   const days = [...new Set(filtered.map(p => p.date))];
   $("posts").innerHTML = days.map(date => `<div class="day-head">${esc(nice(date))}</div>` + filtered.filter(p => p.date === date).map(p => {
     const url = safeUrl(p.url);
-    return `<article class="post"><div class="post-main"><div class="tags"><span class="tag">${esc(p.platform)}</span><span class="account">${esc(p.account)}</span></div><button class="post-title" data-edit="${esc(p.id)}">${esc(p.title)}</button>${p.text ? `<p class="preview">${esc(p.text)}</p>` : ""}${url ? `<a class="post-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Открыть публикацию ↗</a>` : ""}</div><select aria-label="Статус: ${esc(p.title)}" data-status="${esc(p.id)}">${Object.entries(labels).map(([value,label]) => `<option value="${value}" ${p.status === value ? "selected" : ""}>${label}</option>`).join("")}</select></article>`;
+    return `<article class="post"><div class="post-main"><div class="tags"><span class="tag">${esc(p.platform)}</span><span class="account">${esc(p.account)}</span></div><button class="post-title" data-edit="${esc(p.id)}">${esc(p.title)}</button>${p.text ? `<p class="preview">${esc(p.text)}</p>` : ""}${p.visual ? `<p class="visual-preview">Визуал: ${esc(p.visual)}</p>` : ""}${url ? `<a class="post-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Открыть публикацию ↗</a>` : ""}</div><select aria-label="Статус: ${esc(p.title)}" data-status="${esc(p.id)}">${Object.entries(labels).map(([value,label]) => `<option value="${value}" ${p.status === value ? "selected" : ""}>${label}</option>`).join("")}</select></article>`;
   }).join("")).join("");
 }
 function navigate(shift) {
+  period = "month";
   const date = new Date(month + "-01T12:00:00Z");
   date.setUTCMonth(date.getUTCMonth() + shift);
   month = date.toISOString().slice(0,7);
@@ -182,7 +210,7 @@ function openForm(post) {
   const fields = $("form").elements;
   fields.date.value = post?.date || today();
   if (!post && activePlatform !== "all") fields.platform.value = activePlatform;
-  if (post) for (const name of ["title","status","platform","account","text","url"]) fields[name].value = post[name] || "";
+  if (post) for (const name of ["title","status","platform","account","text","visual","url"]) fields[name].value = post[name] || "";
   $("delete").hidden = !post;
   $("modal").hidden = false;
   fields.title.focus();
@@ -190,12 +218,13 @@ function openForm(post) {
 function closeForm() { $("modal").hidden = true; editing = null; }
 $("prev").onclick = () => navigate(-1);
 $("next").onclick = () => navigate(1);
+$("all-days").onclick = () => { period = "cycle"; render(); };
 for (const id of ["search","account","status"]) $(id).addEventListener(id === "search" ? "input" : "change", render);
 function changeSection() {
   activePlatform = platformFromHash();
   $("search").value = $("account").value = $("status").value = "";
-  const dates = posts.filter(p => p.platform === activePlatform).map(p => p.date).filter(Boolean).sort();
-  if (activePlatform !== "all" && dates.length && !dates.some(date => date.startsWith(month))) month = dates[0].slice(0,7);
+  period = activePlatform === "archive" ? "month" : "cycle";
+  month = activePlatform === "archive" ? "2026-11" : "2026-12";
   $("sidebar").classList.remove("open"); $("backdrop").hidden = true;
   window.scrollTo(0,0);
   render();
@@ -208,9 +237,9 @@ $("posts").addEventListener("change", event => { const id = event.target.dataset
 $("form").onsubmit = event => {
   event.preventDefault();
   const form = $("form").elements;
-  const value = Object.fromEntries(["title","date","status","platform","account","text","url"].map(name => [name,form[name].value.trim()]));
+  const value = Object.fromEntries(["title","date","status","platform","account","text","visual","url"].map(name => [name,form[name].value.trim()]));
   if (!value.title || !value.date) return;
-  const item = editing ? posts.find(p => p.id === editing) : { id: crypto.randomUUID() };
+  const item = editing ? posts.find(p => p.id === editing) : { id: crypto.randomUUID(), campaign:"december-2026" };
   if (!item) return;
   Object.assign(item,value);
   if (!editing) posts.push(item);
