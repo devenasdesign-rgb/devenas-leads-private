@@ -151,7 +151,8 @@ try {
   }
 } catch { posts = [...SEED.filter(p => p.platform !== "VK").map(p => ({...p,campaign:"archive"})),...DECEMBER_SEED.map(p => ({...p}))]; }
 let month = "2026-12", period = "cycle", editing = null, activePlatform = "all";
-const platforms = ["Threads","LinkedIn","Instagram","Telegram","Pinterest","Behance"];
+const platforms = ["Threads","LinkedIn","Instagram","Pinterest","Behance"];
+const archivePlatforms = [...platforms,"Telegram"];
 const platformFromHash = () => location.hash === "#archive" ? "archive" : platforms.find(name => name.toLowerCase() === location.hash.slice(1).toLowerCase()) || "all";
 activePlatform = platformFromHash();
 const labels = { idea:"Идея", draft:"Черновик", ready:"Готово", published:"Опубликовано" };
@@ -160,7 +161,7 @@ function render() {
   $("month").textContent = period === "cycle" ? "30.11 — 29.12" : new Date(month + "-01T12:00:00Z").toLocaleDateString("ru-RU", { month:"long", year:"numeric", timeZone:"UTC" }).replace(" г.", "");
   $("all-days").classList.toggle("active", period === "cycle");
   const visiblePosts = posts.filter(p => platforms.includes(p.platform) && p.campaign !== "archive");
-  const archivedPosts = posts.filter(p => platforms.includes(p.platform) && p.campaign === "archive");
+  const archivedPosts = posts.filter(p => archivePlatforms.includes(p.platform) && (p.campaign === "archive" || p.platform === "Telegram"));
   const sectionPosts = activePlatform === "archive" ? archivedPosts : activePlatform === "all" ? visiblePosts : visiblePosts.filter(p => p.platform === activePlatform);
   const monthPosts = sectionPosts.filter(p => period === "cycle" ? p.date >= "2026-11-30" && p.date <= "2026-12-29" : p.date?.startsWith(month));
   $("overview-link").classList.toggle("active", activePlatform === "all");
@@ -193,7 +194,8 @@ function render() {
   const days = [...new Set(filtered.map(p => p.date))];
   $("posts").innerHTML = days.map(date => `<div class="day-head">${esc(nice(date))}</div>` + filtered.filter(p => p.date === date).map(p => {
     const url = safeUrl(p.url);
-    return `<article class="post"><div class="post-main"><div class="tags"><span class="tag">${esc(p.platform)}</span><span class="account">${esc(p.account)}</span></div><button class="post-title" data-edit="${esc(p.id)}">${esc(p.title)}</button>${p.text ? `<p class="preview">${esc(p.text)}</p>` : ""}${p.visual ? `<p class="visual-preview">Визуал: ${esc(p.visual)}</p>` : ""}${url ? `<a class="post-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Открыть публикацию ↗</a>` : ""}</div><select aria-label="Статус: ${esc(p.title)}" data-status="${esc(p.id)}">${Object.entries(labels).map(([value,label]) => `<option value="${value}" ${p.status === value ? "selected" : ""}>${label}</option>`).join("")}</select></article>`;
+    const shortTitle = p.title.length > 72 ? p.title.slice(0,72).replace(/\s+\S*$/, "") + "…" : p.title;
+    return `<article class="post"><div class="post-main"><div class="tags"><span class="tag">${esc(p.platform)}</span><span class="account">${esc(p.account)}</span></div><button class="post-title" data-edit="${esc(p.id)}">${esc(shortTitle)}</button>${p.text ? `<p class="preview">${esc(p.text)}</p>` : ""}${p.visual && !p.text?.includes(p.visual) ? `<p class="visual-preview">Визуал: ${esc(p.visual)}</p>` : ""}${url ? `<a class="post-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Открыть публикацию ↗</a>` : ""}</div><select aria-label="Статус: ${esc(p.title)}" data-status="${esc(p.id)}">${Object.entries(labels).map(([value,label]) => `<option value="${value}" ${p.status === value ? "selected" : ""}>${label}</option>`).join("")}</select></article>`;
   }).join("")).join("");
 }
 function navigate(shift) {
@@ -208,6 +210,7 @@ function openForm(post) {
   $("form").reset();
   $("form-title").textContent = post ? "Редактировать публикацию" : "Новая публикация";
   const fields = $("form").elements;
+  fields.platform.querySelector('option[value="Telegram"]').hidden = post?.platform !== "Telegram";
   fields.date.value = post?.date || today();
   if (!post && activePlatform !== "all") fields.platform.value = activePlatform;
   if (post) for (const name of ["title","status","platform","account","text","visual","url"]) fields[name].value = post[name] || "";
