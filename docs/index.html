@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>Devenas Leads — рабочая панель</title><meta name="description" content="Личная панель тёплых запросов"><style>:root{font-family:Arial,Helvetica,sans-serif;color:#272723;background:#f6f6f2}*{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}a{color:inherit;text-decoration:none}.shell{display:flex;min-height:100vh}.sidebar{width:256px;flex:none;min-height:100vh;background:#222620;color:#f4f4ed;padding:27px 14px 21px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;padding:0 11px;margin-bottom:61px}.brand-mark{width:39px;height:39px;border-radius:11px;background:#d9ec76;color:#252a20;font-size:27px;font-weight:800;display:grid;place-items:center;letter-spacing:-3px;padding-right:3px}.brand strong{display:block;font-size:19px;letter-spacing:-.055em}.brand small{display:block;font-size:11px;color:#acb2a6;letter-spacing:.02em;margin-top:2px}.side-section-title{color:#899186;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 15px;margin-bottom:15px}.side-nav{display:flex;flex-direction:column;gap:3px}.nav-item{height:43px;border:0;background:transparent;color:#bdc4ba;border-radius:10px;display:flex;align-items:center;gap:13px;padding:0 13px;text-align:left;font-size:14px;font-weight:500}.nav-item:hover{background:#32392f;color:white}.nav-item.active{color:#27301e;background:#deed99;font-weight:700}.nav-item span:nth-child(2){flex:1}.nav-item em{font-style:normal;font-size:12px;opacity:.65}.nav-bullet{width:18px;display:grid;place-items:center}.nav-bullet:before{content:"";width:5px;height:5px;background:currentColor;border-radius:50%}.side-bottom{margin-top:auto}.side-card{border:1px solid #414a3d;background:#2b322a;border-radius:14px;padding:17px;margin:12px 3px 25px}.side-card-icon{color:#d9ec76;font-size:22px;display:block;margin-bottom:11px}.side-card strong{display:block;font-size:13px;line-height:1.4}.side-card p{color:#aeb9a9;font-size:12px;line-height:1.5;margin:6px 0 0}.side-foot{color:#777f74;font-size:10px;letter-spacing:.08em;padding:0 14px}.main{min-width:0;flex:1}.topbar{height:75px;background:#fff;border-bottom:1px solid #e9eae4;display:flex;align-items:center;justify-content:space-between;padding:0 47px}.breadcrumb{font-size:13px;color:#777e74}.breadcrumb span{margin:0 9px;color:#c5c9c0}.avatar{width:34px;height:34px;border-radius:50%;background:#e9dce9;color:#5f425f;display:grid;place-items:center;font-weight:700;font-size:13px}.content{max-width:1315px;margin:auto;padding:48px 46px 80px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:37px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:#8d9780;margin:0 0 13px}.heading h1{font-size:clamp(32px,3vw,44px);letter-spacing:-.055em;line-height:1.06;margin:0 0 13px;font-weight:750}.spark{font-size:24px;color:#a9c454;vertical-align:top;margin-left:12px}.subhead{font-size:15px;color:#747a70;margin:0;line-height:1.5}.primary-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:#293128;color:#fff;border-radius:10px;min-height:44px;padding:0 17px;font-size:14px;font-weight:700;white-space:nowrap}.primary-button:hover{background:#414d37}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:28px}.stat{background:#fff;border:1px solid #e9eae3;border-radius:15px;min-height:139px;padding:21px 22px;display:flex;flex-direction:column}.stat span{font-size:13px;color:#666e64}.stat strong{font-size:34px;letter-spacing:-.06em;line-height:1.1;margin-top:13px}.stat small{font-size:12px;color:#9ba199;margin-top:6px}.list-panel{background:#fff;border:1px solid #e8eae2;border-radius:17px;overflow:hidden}.list-head{display:flex;justify-content:space-between;align-items:center;padding:25px 26px 21px}.list-head h2{font-size:20px;letter-spacing:-.03em;margin:0 0 5px}.list-head p{font-size:13px;color:#92988e;margin:0}.result-count{background:#f2f3ed;border-radius:20px;padding:7px 11px;font-size:12px;color:#697063}.filters{padding:0 26px 20px;display:flex;gap:9px}.searchbox{height:43px;border:1px solid #e2e5dd;border-radius:9px;display:flex;align-items:center;gap:10px;padding:0 13px;flex:1;color:#969e92}.searchbox:focus-within{border-color:#9dac8b}.searchbox input{border:0;outline:0;flex:1;min-width:0;color:#252d24;background:transparent;font-size:13px}.select-wrap,.status-select{height:43px;position:relative;display:flex;align-items:center}.select-wrap select,.status-select select{appearance:none;border:1px solid #e2e5dd;border-radius:9px;background:#fff;padding:0 35px 0 13px;height:100%;font-size:13px;color:#485147;outline:0}.select-wrap svg,.status-select svg{position:absolute;right:11px;pointer-events:none;color:#879081}.empty{min-height:290px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-top:1px solid #f1f2ee;padding:33px}.empty-icon{width:62px;height:62px;border-radius:18px;background:#eff3dd;color:#657a39;display:grid;place-items:center;margin-bottom:18px}.empty h3{font-size:19px;letter-spacing:-.03em;margin:0 0 8px}.empty p{color:#858d82;max-width:420px;line-height:1.5;font-size:14px;margin:0 0 18px}.text-button{display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;color:#475b34;font-weight:700;font-size:14px}.lead-list{border-top:1px solid #eff0ec}.lead-card{padding:21px 26px 19px;border-bottom:1px solid #eff0ec}.lead-card:last-child{border-bottom:0}.lead-card:hover{background:#fdfefa}.lead-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}.source{border-radius:6px;background:#f0f2ec;padding:5px 8px;font-weight:700;font-size:11px;color:#5c6459}.source-threads{background:#e9e8f3;color:#514969}.source-instagram{background:#f7e9ed;color:#944d65}.source-pinterest{background:#faeae7;color:#a54f42}.source-telegram{background:#e6f2f6;color:#3c748b}.high-priority{color:#69812f;background:#f1f6dd;border-radius:6px;padding:5px 8px;font-size:11px;font-weight:700}.lead-date{margin-left:auto;color:#a0a69d;font-size:12px}.lead-title{display:block;border:0;background:transparent;padding:0;text-align:left;font-size:17px;font-weight:700;letter-spacing:-.03em;color:#293029}.lead-title:hover{text-decoration:underline}.lead-excerpt{color:#747e72;line-height:1.5;font-size:13px;margin:8px 0 13px;max-width:720px;white-space:pre-wrap}.lead-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:12px}.lead-meta,.lead-actions{display:flex;align-items:center;gap:12px}.lead-meta{color:#777e72;font-size:12px}.lead-meta span{display:flex;align-items:center;gap:5px}.lead-meta .due{color:#a4583b}.status-select{height:32px}.status-select select{border:0;background:#f3f5ed;color:#556b3b;font-weight:700;border-radius:7px;font-size:12px;padding-left:10px;padding-right:27px}.status-select svg{right:7px}.open-link{width:32px;height:32px;display:grid;place-items:center;border:1px solid #e4e8df;border-radius:7px;color:#5b6859}.open-link:hover{background:#f0f4e8}.hint{display:flex;gap:14px;align-items:flex-start;margin-top:25px;padding:0 5px;color:#6d7769}.hint>span{font-size:22px;color:#8fa95e}.hint strong{font-size:13px}.hint p{font-size:12px;line-height:1.5;margin:5px 0 0;color:#92998e}.error{color:#933b2e;background:#fff1ed;border:1px solid #f0c9bd;border-radius:8px;padding:10px 12px;font-size:13px;margin:8px 26px 15px}.error button{border:0;background:transparent;text-decoration:underline;margin-left:8px;color:inherit}.modal-layer{position:fixed;inset:0;background:#1b211bac;display:flex;justify-content:flex-end;z-index:30}.modal{width:min(550px,100%);height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-14px 0 55px #171e1730}.modal-header{padding:30px 30px 22px;border-bottom:1px solid #eceee8;display:flex;justify-content:space-between;align-items:flex-start}.modal-header h2{font-size:26px;letter-spacing:-.05em;margin:0}.modal-header .eyebrow{margin-bottom:9px}.icon-button{border:0;background:#f2f3ef;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;color:#51594f}.form-body{padding:26px 30px;overflow:auto;flex:1}.form-body label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:700;color:#414a41;margin-bottom:19px}.form-body label span{color:#bd624d}.form-body input,.form-body textarea,.form-body select{border:1px solid #dee3da;border-radius:8px;background:#fff;outline:0;padding:11px 12px;width:100%;font-size:14px;font-weight:400;color:#273027;min-height:42px}.form-body textarea{resize:vertical;line-height:1.5}.form-body input:focus,.form-body select:focus,.form-body textarea:focus{border-color:#8aa764;box-shadow:0 0 0 3px #daedc36b}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-body .error{margin:0}.modal-footer{border-top:1px solid #eceee8;padding:18px 30px;display:flex;justify-content:flex-end;gap:9px}.ghost-button,.delete-button{border:1px solid #e1e5dc;border-radius:9px;background:#fff;padding:0 15px;min-height:44px;color:#596357;font-weight:700;font-size:13px}.delete-button{display:inline-flex;align-items:center;gap:7px;color:#a34d3e;margin-right:auto}.mobile-trigger{display:none}.mobile-backdrop{display:none}
+@media(max-width:1000px){.sidebar{width:215px}.content{padding:36px 25px}.topbar{padding:0 25px}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.sidebar{position:fixed;z-index:21;transform:translateX(-100%);transition:transform .2s;width:270px}.sidebar.sidebar-open{transform:translateX(0)}.mobile-backdrop{display:block;position:fixed;z-index:20;inset:0;background:#1b211b88;border:0}.mobile-trigger{display:block;border:0;background:transparent;font-size:22px;margin-right:13px;color:#303b2d}.topbar{height:62px;padding:0 19px;justify-content:flex-start}.avatar{margin-left:auto}.content{padding:30px 17px 65px}.heading{align-items:flex-start;flex-direction:column;gap:20px;margin-bottom:25px}.heading h1{font-size:34px}.heading .primary-button{width:100%}.stats{gap:9px;margin-bottom:19px}.stat{min-height:115px;padding:16px}.stat strong{font-size:28px;margin-top:9px}.list-head{padding:20px 17px 17px}.list-head p{font-size:12px}.filters{padding:0 17px 17px;flex-wrap:wrap}.searchbox{min-width:100%;flex:none}.select-wrap select{min-width:160px}.lead-card{padding:18px 17px}.lead-bottom{align-items:flex-start}.lead-meta{flex-direction:column;align-items:flex-start;gap:5px}.modal-header,.form-body,.modal-footer{padding-left:19px;padding-right:19px}.form-row{grid-template-columns:1fr;gap:0}}
+[hidden]{display:none!important}.nav-symbol{width:18px;text-align:center;font-size:17px;line-height:1}.select-wrap>span,.status-select>span{position:absolute;right:11px;pointer-events:none;color:#879081}.status-select>span{right:7px}.searchbox>span{font-size:24px;line-height:1}.form-shell{display:flex;flex:1;min-height:0;flex-direction:column}.modal-layer .modal{overflow:hidden}
+
+/* Тёмная палитра панели */
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#eef2f7;background:#20242c;font-weight:400;line-height:1.3}
+body{margin:0;background:#20242c}
+.sidebar{background:#191d24;color:#eef2f7}
+.brand-mark,.primary-button{background:#4b8df7;color:#fff}
+.brand-mark{font-weight:600}
+.brand strong{font-weight:500}
+.brand small,.side-section-title,.side-foot{color:#9199a7}
+.nav-item{color:#b6bfcb;font-weight:400}
+.nav-item:hover{background:#29313d;color:#fff}
+.nav-item.active{background:#3d76d6;color:#fff;font-weight:500}
+.side-card{background:#242b36;border-color:#364150}
+.side-card-icon,.spark,.hint>span{color:#75a9ff}
+.side-card strong,.hint strong{font-weight:500}
+.side-card p{color:#a7b0bf;line-height:1.3}
+.topbar{background:#242932;border-color:#38404d}
+.breadcrumb{color:#aab3c1}.breadcrumb span{color:#778293}
+.avatar{background:#355a91;color:#eaf3ff;font-weight:500}
+.eyebrow{color:#87b4ff;font-weight:500}
+.heading h1{font-weight:500;line-height:1.03}
+.subhead,.list-head p,.lead-excerpt,.empty p,.hint p{color:#aeb8c6;line-height:1.35}
+.primary-button{font-weight:500}.primary-button:hover{background:#3b7ee8}
+.stats .stat,.list-panel{background:#2b303a;border-color:#3b4350}
+.stat span,.stat small{color:#aeb8c6}
+.stat strong{font-weight:400;color:#f2f5f9}
+.list-head h2,.empty h3,.lead-title,.modal-header h2{font-weight:500}
+.result-count{background:#384250;color:#cbd5e4}
+.searchbox,.select-wrap select{border-color:#46505e;background:#242a34;color:#e8edf5}
+.searchbox input{color:#f1f5fa}.searchbox input::placeholder,.form-body input::placeholder,.form-body textarea::placeholder{color:#8893a4}
+.searchbox:focus-within{border-color:#6da6ff}
+.select-wrap>span,.status-select>span{color:#aab8ca}
+.empty,.lead-list,.lead-card{border-color:#3b4350}
+.empty-icon{background:#344766;color:#9ac0ff}
+.text-button{color:#91baff;font-weight:500}
+.lead-card:hover{background:#323946}
+.source{background:#3d4857;color:#d4dbe5;font-weight:500}
+.source-threads{background:#42465e;color:#d6d9ff}
+.source-instagram{background:#533c58;color:#f4cef3}
+.source-pinterest{background:#5a3e48;color:#ffd8dc}
+.source-telegram{background:#335066;color:#c1e9ff}
+.high-priority{background:#304e70;color:#b7d8ff;font-weight:500}
+.lead-date,.lead-meta{color:#9eabba}
+.lead-title{color:#eff3f8}
+.lead-meta .due{color:#ffbe93}
+.status-select select{background:#354969;color:#bcd8ff;font-weight:500}
+.open-link{background:#303946;border-color:#455266;color:#bcd7ff}.open-link:hover{background:#3b5172}
+.hint{color:#bbc5d4}.hint p{line-height:1.3}
+.error{background:#51343a;border-color:#8c535b;color:#ffe0e0}
+.modal-layer{background:#0e121acb}.modal{background:#292e38;color:#eef2f7}
+.modal-header,.modal-footer{border-color:#424b59}
+.icon-button{background:#3b4452;color:#dce5f2}
+.form-body label{color:#d7e0ec;font-weight:400}
+.form-body label span{color:#ffaaa4}
+.form-body input,.form-body textarea,.form-body select{background:#222832;border-color:#485466;color:#f0f4fa;font-weight:400;line-height:1.25;color-scheme:dark}
+.form-body input:focus,.form-body select:focus,.form-body textarea:focus{border-color:#70a9ff;box-shadow:0 0 0 3px #4b8df72e}
+.ghost-button,.delete-button{background:#303844;border-color:#4a5668;color:#d7e3f4;font-weight:400}
+.delete-button{color:#ffa5a5}
+.mobile-trigger{color:#e7edf5}
+@media(max-width:700px){.mobile-backdrop{background:#10151dc2}}
+</style></head>
+<body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand"><span class="brand-mark">d.</span><div><strong>devenas</strong><small>рабочая панель</small></div></div><div class="side-section-title">РАБОЧЕЕ ПРОСТРАНСТВО</div><nav class="side-nav" id="nav" aria-label="Статусы запросов"></nav><div class="side-bottom"><div class="side-card"><span class="side-card-icon">✳</span><strong>Работаем с тёплыми запросами</strong><p>Здесь будут люди, которые сами ищут сайт или дизайнера.</p></div><div class="side-foot">DEVENAS LEADS · первая версия</div></div></aside><button class="backdrop mobile-backdrop" id="backdrop" aria-label="Закрыть меню"></button>
+<main class="main"><header class="topbar"><button class="mobile-trigger" id="menu" aria-label="Открыть меню">☰</button><div class="breadcrumb">Рабочее пространство <span>/</span> Запросы</div><div class="avatar">Н</div></header><div class="content"><div class="heading"><div><p class="eyebrow">ТВОИ ПРОЕКТЫ НАЧИНАЮТСЯ ЗДЕСЬ</p><h1>Тёплые запросы<span class="spark">✳</span></h1><p class="subhead">Собирай интересные проекты в одном месте и возвращайся к ним вовремя.</p></div><button class="primary-button" id="add">＋ Добавить запрос</button></div><div class="stats" id="stats"></div><section class="list-panel"><div class="list-head"><div><h2 id="list-title">Все запросы</h2><p id="list-description">Все найденные и сохранённые возможности</p></div><span class="result-count" id="result-count">0 запросов</span></div><div class="filters"><label class="searchbox"><span>⌕</span><input id="search" placeholder="Поиск по запросам" aria-label="Поиск по запросам"></label><label class="select-wrap"><select id="source-filter" aria-label="Фильтр по источнику"><option value="all">Все площадки</option><option>Threads</option><option>Instagram</option><option>Pinterest</option><option>Telegram</option><option>Сайт</option><option>Рекомендация</option><option>Другое</option></select><span>⌄</span></label></div><div id="message"></div><div id="list"></div></section><div class="hint"><span>✦</span><div><strong>Локальная версия для проверки.</strong><p>Карточки сохраняются в этом браузере. После публикации подключим хранение между устройствами и поиск публикаций.</p></div></div></div></main></div>
+<div class="modal-layer" id="modal-layer" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="form-title"><div class="modal-header"><div><p class="eyebrow">КАРТОЧКА ПРОЕКТА</p><h2 id="form-title">Новый запрос</h2></div><button class="icon-button" id="close" aria-label="Закрыть">×</button></div><form id="form" class="form-shell"><div class="form-body"><label>Что нужно клиенту? <span>*</span><input name="title" placeholder="Например, сайт для детского центра" maxlength="180" required></label><div class="form-row"><label>Площадка<select name="source"><option>Threads</option><option>Instagram</option><option>Pinterest</option><option>Telegram</option><option>Сайт</option><option>Рекомендация</option><option>Другое</option></select></label><label>Приоритет<select name="priority"><option value="high">Очень подходит</option><option value="medium" selected>Посмотреть</option><option value="low">Не срочно</option></select></label></div><label>Ссылка на запрос<input name="url" type="url" placeholder="https://…"></label><label>Что написал человек?<textarea name="excerpt" rows="3" placeholder="Кратко опиши запрос своими словами"></textarea></label><div class="form-row"><label>Бюджет, если указан<input name="budget" placeholder="Например, от 50 000 ₽"></label><label>Вернуться к запросу<input name="followUpAt" type="date"></label></div><label>Твои заметки<textarea name="notes" rows="3" placeholder="Что предложить, какой кейс показать…"></textarea></label><div id="form-message"></div></div><div class="modal-footer"><button type="button" class="delete-button" id="delete" hidden>Удалить</button><button type="button" class="ghost-button" id="cancel">Отмена</button><button class="primary-button" id="save" type="submit">✓ Сохранить</button></div></form></section></div><script>// Локальная версия: данные хранятся в этом браузере до подключения сервера.
+(() => {
+  const originalFetch = window.fetch.bind(window);
+  const key = "devenas-leads-local-v1";
+  let memory = [];
+  const read = () => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch { return memory; } };
+  const write = rows => { memory = rows; try { localStorage.setItem(key, JSON.stringify(rows)); } catch {} };
+  const response = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json" } });
+  window.fetch = async (url, options = {}) => {
+    if (url !== "/api/leads") return originalFetch(url, options);
+    const method = options.method || "GET";
+    const rows = read();
+    if (method === "GET") return response({ leads: rows });
+    let body; try { body = JSON.parse(options.body); } catch { return response({ error: "Не удалось прочитать запрос." }, 400); }
+    if (method === "POST") {
+      if (!body.title?.trim()) return response({ error: "Добавь название запроса." }, 400);
+      if (body.url && rows.some(x => x.url === body.url)) return response({ error: "Эта ссылка уже есть в панели." }, 409);
+      const now = new Date().toISOString();
+      const lead = { ...body, id: Date.now(), status: "new", createdAt: now, updatedAt: now };
+      write([lead, ...rows]); return response({ lead }, 201);
+    }
+    const index = rows.findIndex(x => x.id === Number(body.id));
+    if (index < 0) return response({ error: "Запрос не найден." }, 404);
+    if (method === "DELETE") { rows.splice(index, 1); write(rows); return response({ ok: true }); }
+    if (method === "PATCH") {
+      rows[index] = { ...rows[index], ...body, id: rows[index].id, updatedAt: new Date().toISOString() };
+      write(rows); return response({ lead: rows[index] });
+    }
+    return response({ error: "Действие не поддерживается." }, 405);
+  };
+})();
+</script><script>const $ = s => document.querySelector(s);
+const labels = { all: "Все запросы", new: "Новые", saved: "Сохранено", replied: "Ответила", talking: "Обсуждаем", proposal: "Предложение", won: "Проект получен", closed: "Закрыто" };
+const icons = { all: "▦", new: "▤", saved: "▧" };
+const state = { leads: [], filter: "all", source: "all", query: "", editing: null, loading: true };
+const esc = x => String(x ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const count = key => key === "all" ? state.leads.length : state.leads.filter(x => x.status === key).length;
+const date = x => new Date(x).toLocaleDateString("ru-RU", { day: "numeric", month: "short", timeZone: "Asia/Yekaterinburg" });
+const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Yekaterinburg" });
+const safeLink = x => { try { const u = new URL(x); return ["http:", "https:"].includes(u.protocol) ? u.href : ""; } catch { return ""; } };
+
+async function api(method, body) {
+  const response = await fetch("/api/leads", { method, headers: body ? { "content-type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "Не удалось выполнить действие.");
+  return data;
+}
+function message(text, target = "#message") { $(target).innerHTML = text ? `<div class="error" role="alert">${esc(text)}</div>` : ""; }
+function render() {
+  $("#nav").innerHTML = Object.entries(labels).map(([key, label]) => `<button class="nav-item ${state.filter === key ? "active" : ""}" data-filter="${key}"><span class="nav-symbol">${icons[key] || "•"}</span><span>${label}</span><em>${count(key)}</em></button>`).join("");
+  const due = state.leads.filter(x => x.followUpAt && x.followUpAt <= today() && !["won", "closed"].includes(x.status)).length;
+  const active = state.leads.filter(x => ["replied", "talking", "proposal"].includes(x.status)).length;
+  $("#stats").innerHTML = [["Всего запросов", state.leads.length, "в твоей панели"], ["Новые", count("new"), "ждут просмотра"], ["В диалоге", active, "есть контакт"], ["Пора вернуться", due, "по твоим напоминаниям"]].map(([a,b,c]) => `<div class="stat"><span>${a}</span><strong>${b}</strong><small>${c}</small></div>`).join("");
+  $("#list-title").textContent = labels[state.filter];
+  $("#list-description").textContent = state.filter === "all" ? "Все найденные и сохранённые возможности" : "Запросы на этом этапе";
+  const visible = state.leads.filter(x => (state.filter === "all" || x.status === state.filter) && (state.source === "all" || x.source === state.source) && `${x.title} ${x.excerpt} ${x.notes}`.toLowerCase().includes(state.query.toLowerCase()));
+  $("#result-count").textContent = `${visible.length} запросов`;
+  if (state.loading) { $("#list").innerHTML = `<div class="empty"><div class="empty-icon">◌</div><h3>Загружаю запросы…</h3></div>`; return; }
+  if (!visible.length) { $("#list").innerHTML = `<div class="empty"><div class="empty-icon">✳</div><h3>${state.leads.length ? "Здесь пока пусто" : "Начнём с первого запроса"}</h3><p>${state.leads.length ? "Попробуй изменить фильтр или поиск." : "Нашла пост, где ищут дизайнера? Сохрани ссылку, заметки и следующий шаг — всё будет под рукой."}</p><button class="text-button" id="empty-add">＋ Добавить запрос</button></div>`; return; }
+  $("#list").innerHTML = `<div class="lead-list">${visible.map(x => `<article class="lead-card"><div class="lead-top"><span class="source source-${esc(x.source.toLowerCase())}">${esc(x.source)}</span>${x.priority === "high" ? '<span class="high-priority">Подходит тебе</span>' : ""}<span class="lead-date">${date(x.createdAt)}</span></div><button class="lead-title" data-edit="${x.id}">${esc(x.title)}</button>${x.excerpt ? `<p class="lead-excerpt">${esc(x.excerpt)}</p>` : ""}<div class="lead-bottom"><div class="lead-meta">${x.budget ? `<span>${esc(x.budget)}</span>` : ""}${x.followUpAt ? `<span class="${x.followUpAt <= today() ? "due" : ""}">◷ ${esc(x.followUpAt)}</span>` : ""}</div><div class="lead-actions"><label class="status-select"><select data-status="${x.id}" aria-label="Статус: ${esc(x.title)}">${Object.entries(labels).slice(1).map(([key,label]) => `<option value="${key}" ${x.status === key ? "selected" : ""}>${label}</option>`).join("")}</select><span>⌄</span></label>${safeLink(x.url) ? `<a class="open-link" target="_blank" rel="noopener noreferrer" href="${esc(safeLink(x.url))}" aria-label="Открыть источник">↗</a>` : ""}</div></div></article>`).join("")}</div>`;
+}
+function openForm(lead) {
+  state.editing = lead || "new";
+  $("#form").reset();
+  message("", "#form-message");
+  $("#form-title").textContent = lead ? "Детали запроса" : "Новый запрос";
+  $("#delete").hidden = !lead;
+  if (lead) for (const name of ["title","source","url","excerpt","budget","notes","priority","followUpAt"]) $("#form").elements[name].value = lead[name] || "";
+  $("#modal-layer").hidden = false;
+  $("#form").elements.title.focus();
+}
+function closeForm() { $("#modal-layer").hidden = true; state.editing = null; }
+$("#add").onclick = () => openForm();
+$("#close").onclick = closeForm;
+$("#cancel").onclick = closeForm;
+$("#modal-layer").onclick = e => { if (e.target === $("#modal-layer")) closeForm(); };
+$("#menu").onclick = () => $("#sidebar").classList.add("sidebar-open");
+$("#backdrop").onclick = () => $("#sidebar").classList.remove("sidebar-open");
+$("#search").oninput = e => { state.query = e.target.value; render(); };
+$("#source-filter").onchange = e => { state.source = e.target.value; render(); };
+$("#nav").onclick = e => { const button = e.target.closest("[data-filter]"); if (!button) return; state.filter = button.dataset.filter; $("#sidebar").classList.remove("sidebar-open"); render(); };
+$("#list").onclick = e => { if (e.target.closest("#empty-add")) openForm(); const button = e.target.closest("[data-edit]"); if (button) openForm(state.leads.find(x => x.id === Number(button.dataset.edit))); };
+$("#list").onchange = async e => {
+  const select = e.target.closest("[data-status]"); if (!select) return;
+  const id = Number(select.dataset.status), previous = state.leads.find(x => x.id === id);
+  try { const { lead } = await api("PATCH", { id, status: select.value }); state.leads = state.leads.map(x => x.id === id ? lead : x); message(""); render(); }
+  catch (err) { select.value = previous.status; message(err.message); }
+};
+$("#form").onsubmit = async e => {
+  e.preventDefault();
+  const button = $("#save"); button.disabled = true; button.textContent = "Сохраняю…";
+  const payload = Object.fromEntries(new FormData(e.target));
+  try {
+    const { lead } = await api(state.editing === "new" ? "POST" : "PATCH", state.editing === "new" ? payload : { ...payload, id: state.editing.id });
+    state.leads = state.editing === "new" ? [lead, ...state.leads] : state.leads.map(x => x.id === lead.id ? lead : x);
+    closeForm(); message(""); render();
+  } catch (err) { message(err.message, "#form-message"); }
+  finally { button.disabled = false; button.textContent = "✓ Сохранить"; }
+};
+$("#delete").onclick = async () => {
+  const lead = state.editing;
+  if (!lead || lead === "new" || !confirm(`Удалить «${lead.title}»?`)) return;
+  try { await api("DELETE", { id: lead.id }); state.leads = state.leads.filter(x => x.id !== lead.id); closeForm(); render(); }
+  catch (err) { message(err.message, "#form-message"); }
+};
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#modal-layer").hidden) closeForm(); });
+render();
+api("GET").then(data => { state.leads = data.leads; message(""); }).catch(err => message(err.message)).finally(() => { state.loading = false; render(); });
+</script></body></html>
